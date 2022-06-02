@@ -6,7 +6,7 @@ export const juegoView = () => {
   /**
    * Variables globales
    */
-  let nivel = 1;
+  let nivel = 5;
   let pregunta;
   let nombreCategoria;
   let nombrePregunta;
