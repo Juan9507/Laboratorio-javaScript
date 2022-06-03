@@ -24,9 +24,9 @@ export const juegoView = async () => {
    */
   elegirCategoria();
   elegirPregunta();
-  console.log(getnombreCategoria());
-  console.log(getnombrePregunta());
-  console.log(getPregunta());
+  // console.log(getnombreCategoria());
+  // console.log(getnombrePregunta());
+  // console.log(getPregunta());
 
   /**
    * seleccionando el elemento padre del dom
