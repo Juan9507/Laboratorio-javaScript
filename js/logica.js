@@ -1,3 +1,10 @@
+/**
+ * Logica para validar el funcionamiento del juego
+ *
+ * @author [Juan David Rivera Naranjo - juandavidnaranjo75@gmail.com]
+ * @version [v1.0.0]
+ * @since [v1.0.0]
+ */
 import { categorias } from "../categorias/categorias.js";
 import { preguntas } from "../preguntas/preguntas.js";
 import { respuestas } from "../respuestas/respuestas.js";
@@ -24,7 +31,6 @@ function recuperarCard() {
   elegirCategoria();
   elegirPregunta();
   let card = document.querySelector(".card");
-
   let cardBody = document.querySelector(".card");
   cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
@@ -51,6 +57,10 @@ function recuperarCard() {
   form.append(formBtn);
 }
 
+/**
+ * Funcion para elegir la categoria
+ * @returns - retorna el nombre nombre de la categoria
+ */
 export async function elegirCategoria() {
   await categorias.forEach((element) => {
     if (element.nivel == nivel) {
@@ -61,7 +71,8 @@ export async function elegirCategoria() {
 }
 
 /**
- * Funcion para elegir la pregunta segun la pregunta
+ * Funcion para elegir la pregunta,
+ * segun la pregunta en la que se esta y el nivel
  */
 export async function elegirPregunta() {
   let rand = Math.ceil(Math.random() * 5);
@@ -104,7 +115,7 @@ export async function validarForm(form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     if (nivel < 5) {
-      validoNivel(event);
+      validarRespuesta(event);
     } else {
       guardarHistorico(true);
     }
@@ -116,12 +127,12 @@ export async function validarForm(form) {
  * sirve para saver si ya gano el juego
  * @param {*} event recibe el event del form
  */
-export function validoNivel(event) {
+export function validarRespuesta(event) {
   let valor = document.querySelector("input[name=preguntas]:checked").value;
   event.preventDefault();
   if (valor == 1) {
     aumentarAcumulado();
-    bootbox.alert("Pregunta conrrecta!");
+    bootbox.alert("Pregunta correcta!");
     setTimeout(() => {
       saberSiJuega();
     }, 3000);
@@ -162,17 +173,48 @@ export async function saberSiJuega() {
   });
 }
 
+/**Funcion para volver a crear el acumulado
+ * @param {*} acumuladoCol
+ */
 function revivirAcumulado(acumuladoCol) {
   let acumuladoValor = document.createElement("h3");
   acumuladoValor.textContent = "Acumulado " + acumulado;
   acumuladoCol.append(acumuladoValor);
 }
 
+/**
+ * Funcion para aumentar el acumulado
+ */
 export function aumentarAcumulado() {
-  acumulado += 5;
-  temp = acumulado;
+  switch (nivel) {
+    case 1:
+      acumulado += 5;
+      temp = acumulado;
+      break;
+    case 2:
+      acumulado += 10;
+      temp = acumulado;
+      break;
+    case 3:
+      acumulado += 15;
+      temp = acumulado;
+      break;
+    case 4:
+      acumulado += 20;
+      temp = acumulado;
+      break;
+    case 5:
+      acumulado += 35;
+      temp = acumulado;
+      break;
+  }
+  //acumulado += 5;
+  //temp = acumulado;
 }
 
+/**
+ * Funcion para aumentar el nivel
+ */
 export function aumentarNivel() {
   nivel++;
   let cardForm = document.querySelector(".card");
@@ -183,6 +225,9 @@ export function aumentarNivel() {
   recuperarCard(cardForm);
 }
 
+/**
+ * Funcion para frenar el juego
+ */
 function frenarJuego() {
   nivel = 1;
   acumulado = 0;
@@ -194,6 +239,10 @@ function frenarJuego() {
   recuperarCard(cardForm);
 }
 
+/**
+ * Funcion para guardar el historico
+ * @param {*} retirada
+ */
 function guardarHistorico(retirada) {
   let texto;
   if (!retirada) {
@@ -203,19 +252,25 @@ function guardarHistorico(retirada) {
       centerVertical: true,
       callback: function (result) {
         console.log(result);
-        //addHistorico(result, temp);
-        localStoreHistoricoList(addHistorico(result, temp));
+        if (result != undefined) {
+          localStoreHistoricoList(addHistorico(result, temp));
+        } else {
+          localStoreHistoricoList(addHistorico("sofkaU", temp));
+        }
       },
     });
   } else {
     bootbox.prompt({
       title:
-        "Felicidades ganastes por favor digita ru nombre para guardar el historico!!",
+        "Felicidades ganastes por favor digita tu nombre para guardar el historico!!",
       centerVertical: true,
       callback: function (result) {
         console.log(result);
-        //addHistorico(result, temp);
-        localStoreHistoricoList(addHistorico(result, temp));
+        if (result != undefined) {
+          localStoreHistoricoList(addHistorico(result, temp));
+        } else {
+          localStoreHistoricoList(addHistorico("sofkaU", temp));
+        }
       },
     });
   }

@@ -1,3 +1,10 @@
+/**
+ * Vista para pintar los elementos del juego
+ *
+ * @author [Juan David Rivera Naranjo - juandavidnaranjo75@gmail.com]
+ * @version [v1.0.0]
+ * @since [v1.0.0]
+ */
 import {
   getPregunta,
   getacumulado,

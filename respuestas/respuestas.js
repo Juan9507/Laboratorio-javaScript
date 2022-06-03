@@ -1,8 +1,12 @@
 /**
- * Respuestas para la preguntas
+ * * Respuestas para la preguntas
  * pregunta = numero de la pregunta al cual sacar las respuestas
  * valor = 0 false, 1 true "Saber la respuesta correcta"
  * nivel -> Numero del nivel
+ *
+ * @author [Juan David Rivera Naranjo - juandavidnaranjo75@gmail.com]
+ * @version [v1.0.0]
+ * @since [v1.0.0]
  */
 export const respuestas = [
   {

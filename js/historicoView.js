@@ -1,5 +1,15 @@
+/**
+ * funciones para pintar en el html el historico
+ *
+ * @author [Juan David Rivera Naranjo - juandavidnaranjo75@gmail.com]
+ * @version [v1.0.0]
+ * @since [v1.0.0]
+ */
 import { getHistoricoList } from "./historico.js";
 
+/**
+ * creacion y manejo del Dom
+ */
 export const historicoView = () => {
   const container = document.querySelector("#container");
   container.classList.add("container");
